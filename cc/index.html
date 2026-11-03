@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Con cariño para mi Flaco</title>
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card-bg: #1e293b;
+      --accent: #B97846;
+      --accent-glow: rgba(185, 120, 70, 0.35);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top, #1e1b4b 0%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2.5rem 1rem;
+    }
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      padding-bottom: 2.5rem;
+    }
+    .top-badge {
+      display: inline-block;
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      margin-bottom: 1rem;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    header p {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    /* CONTADOR EN VIVO */
+    .counter-box {
+      background: var(--card-bg);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .counter-title {
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .counter-values {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* ABRAZO VIRTUAL */
+    .hug-box {
+      background: var(--card-bg);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .heart-button {
+      width: 85px;
+      height: 85px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      font-size: 2.2rem;
+      cursor: pointer;
+      margin: 1rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px var(--accent-glow);
+      transition: transform 0.15s ease;
+      touch-action: manipulation;
+      user-select: none;
+    }
+    .heart-button.holding {
+      animation: pulse 0.8s infinite alternate;
+      box-shadow: 0 0 35px rgba(244, 63, 94, 0.9);
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); }
+      100% { transform: scale(1.15); }
+    }
+    #hug-status {
+      min-height: 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #38bdf8;
+      margin-top: 0.5rem;
+    }
+
+    /* GALLETA DE LA FORTUNA DIARIA (24H) */
+    .cookie-box {
+      background: var(--card-bg);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .cookie-icon {
+      font-size: 3.5rem;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.25s ease;
+      margin: 0.75rem 0;
+      user-select: none;
+    }
+    .cookie-icon:hover { transform: scale(1.15) rotate(6deg); }
+    .cookie-paper {
+      background: #fef08a;
+      color: #713f12;
+      padding: 1rem 1.25rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-top: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      border-left: 4px solid #ca8a04;
+      display: none;
+      animation: unfold 0.4s ease forwards;
+    }
+    @keyframes unfold {
+      from { transform: scaleY(0); opacity: 0; }
+      to { transform: scaleY(1); opacity: 1; }
+    }
+    .countdown-text {
+      font-size: 0.85rem;
+      color: #fb7185;
+      margin-top: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* GALERÍA POLAROID FLIP 3D */
+    .section-title {
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 0.3rem;
+      text-align: center;
+    }
+    .section-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .polaroid-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+    }
+    .polaroid-card {
+      width: 260px;
+      height: 320px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
+    .polaroid-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    .polaroid-card.flipped .polaroid-inner {
+      transform: rotateY(180deg);
+    }
+    .polaroid-front, .polaroid-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      background: #ffffff;
+      color: #1e293b;
+      padding: 12px 12px 18px 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+    }
+    .polaroid-front img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 2px;
+      background-color: #cbd5e1;
+    }
+    .polaroid-front .caption {
+      margin-top: auto;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+    .polaroid-back {
+      transform: rotateY(180deg);
+      background: #f8fafc;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      border: 1px dashed #cbd5e1;
+    }
+    .polaroid-back h4 {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .polaroid-back p {
+      font-size: 0.88rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    /* CARTITAS "ÁBREME CUANDO..." */
+    .letters-container {
+      margin-bottom: 2.5rem;
+    }
+    .letters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.85rem;
+    }
+    .letter-btn {
+      background: var(--card-bg);
+      border: 1px solid #334155;
+      padding: 1.1rem 1rem;
+      border-radius: 12px;
+      color: var(--text);
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .letter-btn:hover {
+      border-color: var(--accent);
+      background: #1e1b4b;
+    }
+    .letter-btn span {
+      font-size: 1.4rem;
+    }
+
+    /* RASCADITO INTERACTIVO (CUPÓN) */
+    .scratch-section {
+      background: var(--card-bg);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .scratch-container {
+      position: relative;
+      width: 320px;
+      height: 200px;
+      margin: 1.2rem auto;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+    }
+    .coupon-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    #scratchCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: crosshair;
+      touch-action: none;
+      transition: opacity 0.5s ease;
+    }
+    .download-btn {
+      background: #0f172a;
+      border: 1px solid var(--accent);
+      color: #fff;
+      padding: 0.75rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: none;
+      margin: 1rem auto 0;
+      text-decoration: none;
+      transition: background 0.2s ease;
+    }
+    .download-btn:hover {
+      background: var(--accent);
+    }
+
+    /* CANDADO SECRETO */
+    .secret-section {
+      background: var(--card-bg);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .secret-section input {
+      background: #0f172a;
+      border: 1px solid #475569;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      width: 180px;
+      text-align: center;
+      margin-right: 0.5rem;
+      outline: none;
+    }
+    .secret-section button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .secret-section button:hover { opacity: 0.9; }
+    #secret-letter {
+      display: none;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed #475569;
+      text-align: left;
+      animation: fadeIn 0.8s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MODAL DE CARTITAS */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      z-index: 99;
+    }
+    .modal-content {
+      background: var(--card-bg);
+      border: 1px solid #475569;
+      border-radius: 16px;
+      padding: 1.8rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: left;
+      animation: popIn 0.3s ease;
+    }
+    .modal-content h3 { font-size: 1.2rem; color: var(--accent); margin-bottom: 0.75rem; }
+    .modal-content p { color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem; }
+    .modal-close-btn {
+      background: #334155;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      float: right;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    
+/* CARTITAS CON ICONOS CENTRADOS */
+
+.letters-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.letter-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 155px;
+  padding: 20px 12px;
+  gap: 12px;
+}
+
+.letter-btn .icono-carta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 65px;
+  margin: 0 auto;
+  flex-shrink: 0;
+}
+
+.letter-btn .icono-carta img {
+  display: block;
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+}
+
+.letter-btn b {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ACOMODO EN CELULAR */
+
+@media (max-width: 380px) {
+  .letters-grid {
+    gap: 10px;
+  }
+
+  .letter-btn {
+    min-height: 145px;
+    padding: 14px 8px;
+  }
+
+  .letter-btn .icono-carta img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .letter-btn b {
+    font-size: 12px;
+  }
+}
+
+
+
+/* ALIENS DECORATIVOS DE FONDO */
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  background-image: url("alien.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.13;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  top: 70px;
+  left: -35px;
+  transform: rotate(-15deg);
+}
+
+body::after {
+  right: -35px;
+  bottom: 80px;
+  transform: rotate(15deg);
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 480px) {
+  body::before,
+  body::after {
+    width: 100px;
+    height: 100px;
+    opacity: 0.1;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="top-badge">🌍 Sin importar la distancia</div>
+      <h1>Para hacerte feliz siempre</h1>
+      <p>Pequeños momentos que hicieron algo grande.</p>
+    </header>
+
+    <!-- 1. CONTADOR DE TIEMPO -->
+    <div class="counter-box">
+      <div class="counter-title">Compartiendo el camino desde hace:</div>
+      <div class="counter-values" id="live-timer">Calculando tiempo...</div>
+    </div>
+
+    <!-- 2. ABRAZO VIRTUAL -->
+    <div class="hug-box">
+      <div class="counter-title">¿Necesitas un abrazo hoy?</div>
+      <button class="heart-button" id="hugBtn">❤️</button>
+      <audio id="audioAbrazo" src="mi_abrazo.mp3" preload="auto"></audio>
+      <p style="font-size: 0.85rem; color: var(--muted);">Mantén presionado el corazón por 3 segundos</p>
+      <div id="hug-status"></div>
+    </div>
+
+    <!-- 3. GALLETA DE LA FORTUNA (1 CADA 24 HORAS) -->
+    <div class="cookie-box">
+      <div class="counter-title">Galleta de la Fortuna Diaria 🥠</div>
+      <p style="color: var(--muted); font-size: 0.9rem;">Ábrela cada día para descubrir una frase especial.</p>
+      <div class="cookie-icon" id="cookieBtn" onclick="crackCookie()">🥠</div>
+      <div class="cookie-paper" id="cookiePaper"></div>
+      <div class="countdown-text" id="cookieCountdown"></div>
+    </div>
+
+    <!-- 4. SOBRES "ÁBREME CUANDO..." -->
+    <div class="letters-container">
+      <h2 class="section-title">Ábreme cuando... 💌</h2>
+      <p class="section-desc">Un mensaje preparado para cada momento que necesites.</p>
+      
+     
+<div class="letters-grid">
+
+  <button class="letter-btn" onclick="openLetter(0)">
+    <span class="icono-carta">
+      <img src="pesado.png" alt="Día pesado">
+    </span>
+    <b>Tengas un día pesado</b>
+  </button>
+
+  <button class="letter-btn" onclick="openLetter(1)">
+    <span class="icono-carta">
+      <img src="extranes.png" alt="Me extrañes">
+    </span>
+    <b>Me extrañes mucho</b>
+  </button>
+
+  <button class="letter-btn" onclick="openLetter(2)">
+    <span class="icono-carta">
+      <img src="hambre.png" alt="Hambre">
+    </span>
+    <b>Tengas hambre o antojo</b>
+  </button>
+
+  <button class="letter-btn" onclick="openLetter(3)">
+    <span class="icono-carta">
+      <img src="triste.png" alt="Triste">
+    </span>
+    <b>Estés triste o de bajón</b>
+  </button>
+
+  <button class="letter-btn" onclick="openLetter(4)">
+    <span class="icono-carta">
+      <img src="dormir.png" alt="Dormir">
+    </span>
+    <b>Te vayas a dormir</b>
+  </button>
+
+  <button class="letter-btn" onclick="openLetter(5)">
+    <span class="icono-carta">
+      <img src="feliz.png" alt="Feliz">
+    </span>
+    <b>Estés feliz y radiante</b>
+  </button>
+
+</div>
+
+    </div>
+
+    <!-- 5. GALERÍA DE RECUERDOS POLAROID FLIP 3D -->
+    <div class="gallery-section">
+      <h2 class="section-title">Nuestros Recuerdos 📸</h2>
+      <p class="section-desc">Toca o haz clic sobre cada foto para leer lo que guardo detrás.</p>
+
+      <div class="polaroid-grid">
+        <!-- Foto 1 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto11.jpg" alt="Recuerdo 1">
+              <div class="caption">El inicio de todo ✨</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>Septiembre 2017</h4>
+              <p>Donde empezó nuestra historia. Desde este momento supe que serías alguien muy especial en mi vida.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 2 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto1.jpg" alt="Recuerdo 2">
+              <div class="caption">Nuestro primer viaje 🌅</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>Risas infinitas</h4>
+              <p>No importaba el lugar ni lo que estuviéramos haciendo, contigo todo plan es perfecto apesar de que me quedara sin aire.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 3 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto2.jpg" alt="Recuerdo 3">
+              <div class="caption">Un día inolvidable 📸</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>Recuerdos juntos</h4>
+              <p>De esos días que guardo en la memoria para cuando te extraño un poquito más por que acabas de llegar.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 4 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto4.jpg" alt="Recuerdo 4">
+              <div class="caption">De aventura 🚗</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>El camino</h4>
+              <p>Cualquier viaje o salida se vuelve la mejor anécdota si vamos los dos juntos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 5 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto5.jpg" alt="Recuerdo 5">
+              <div class="caption">Cómplices siempre 🤝</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>Mi equipo</h4>
+              <p>Gracias por estar en las buenas, en las malas y en todas las locuras.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 6 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto6.jpg" alt="Recuerdo 6">
+              <div class="caption">Esa sonrisa tuya 😊</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>Mi favorita</h4>
+              <p>Tu sonrisa tiene el poder de alegrarme hasta el día más pesado.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 7 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto7.jpg" alt="Recuerdo 7">
+              <div class="caption">Tarde tranquila ☕</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>La Navidad</h4>
+              <p>Me encantan los días simples donde solo disfrutamos de la compañía mutua de nuestra primera navidad juntos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 8 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto8.jpg" alt="Recuerdo 8">
+              <div class="caption">Siempre juntos 🌟</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>Sin importar nada</h4>
+              <p>Cada año que pasa me confirma que elegí a la persona correcta.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 9 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto9.jpg" alt="Recuerdo 9">
+              <div class="caption">Día de celebración 🎉</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>Festejando la vida</h4>
+              <p>Verte feliz siempre será mi mayor motivo de orgullo y alegría a pesar de no gustarte este día (mi mamá estuvo ahí).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 10 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto10.jpg" alt="Recuerdo 10">
+              <div class="caption">Un abrazo pendiente 🫂</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>A la distancia</h4>
+              <p>Ningún kilómetro puede competir con todo lo que hemos construido juntos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Foto 11 -->
+        <div class="polaroid-card" onclick="flipCard(this)">
+          <div class="polaroid-inner">
+            <div class="polaroid-front">
+              <img src="Foto3.jpg" alt="Recuerdo 11">
+              <div class="caption">Por muchos años más ♾️</div>
+            </div>
+            <div class="polaroid-back">
+              <h4>El zuchil</h4>
+              <p>Esto apenas empieza; todavía nos quedan millones de momentos por vivir juntos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. RASCADITO INTERACTIVO (CUPÓN) -->
+    <div class="scratch-section">
+      <h2 class="section-title">Raspa para revelar tu cupón 🎟️</h2>
+      <p class="section-desc">Pasa el dedo o el ratón para descubrir el cupón que guardo para ti.</p>
+
+      <div class="scratch-container" id="scratchBox">
+        <img src="cupon.png" alt="Cupón especial" class="coupon-image" id="couponImg">
+        <canvas id="scratchCanvas" width="320" height="200"></canvas>
+      </div>
+
+      <a href="cupon.png" download="Mi_Cupon_Especial.png" class="download-btn" id="downloadBtn">Descargar mi Cupón Oficial 📥</a>
+    </div>
+
+    <!-- 7. CANDADO SECRETO -->
+    <div class="secret-section">
+      <h3>Hay un mensaje bloqueado 🔒</h3>
+      <p style="color: var(--muted); margin: 0.5rem 0 1rem; font-size: 0.9rem;">
+        Introduce el día en que nacimos (ejemplo: 1402)
+      </p>
+      <div>
+        <input type="password" id="passcode" placeholder="Código" maxlength="6">
+        <button onclick="checkCode()">Desbloquear</button>
+      </div>
+      <p id="error-msg" style="color: #fb7185; font-size: 0.85rem; margin-top: 0.5rem; display: none;">Código incorrecto, intenta de nuevo.</p>
+
+      <div id="secret-letter">
+        <h4 style="color: var(--accent); margin-bottom: 0.5rem;">Para ti:</h4>
+        <p>Gracias por ser mi lugar seguro, mi mejor cómplice y la persona con la que quiero seguir sumando momentos. Esto apenas empieza. ¡Te quiero mucho!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VENTANA MODAL PARA LAS CARTITAS -->
+  <div class="modal" id="noteModal">
+    <div class="modal-content">
+      <h3 id="modalTitle">Título</h3>
+      <p id="modalBody">Texto de la carta...</p>
+      <button class="modal-close-btn" onclick="closeModal()">Guardar mensaje</button>
+    </div>
+  </div>
+
+  <script>
+    const startDate = new Date(2017, 8, 9, 0, 0, 0);
+    const SECRET_CODE = "1219";
+
+    function updateCounter() {
+      const now = new Date();
+      const diffMs = now - startDate;
+
+      if (diffMs < 0) {
+        document.getElementById("live-timer").textContent = "La fecha aún no comienza";
+        return;
+      }
+
+      const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diffMs / 1000 / 60) % 60);
+      const seconds = Math.floor((diffMs / 1000) % 60);
+
+      document.getElementById("live-timer").textContent = 
+        `${days} días, ${hours}h ${minutes}m ${seconds}s`;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    // ==========================================
+    // ABRAZO VIRTUAL INTERACTIVO
+    // ==========================================
+    let pressTimer;
+    const hugBtn = document.getElementById("hugBtn");
+    const hugStatus = document.getElementById("hug-status");
+
+   
+function startPress(e) {
+  e.preventDefault();
+
+  clearTimeout(pressTimer);
+
+  hugBtn.classList.add("holding");
+  hugStatus.textContent = "Cargando abrazo...";
+
+  pressTimer = setTimeout(() => {
+    hugBtn.classList.remove("holding");
+
+    hugStatus.textContent =
+      "✨ ¡Abrazo enviado y recibido! Llegó completito.";
+
+    if (navigator.vibrate) {
+      navigator.vibrate([100, 50, 100]);
+    }
+
+    // Reproducir tu audio automáticamente
+    const audio = document.getElementById("audioAbrazo");
+
+    if (audio) {
+      audio.pause();
+      audio.currentTime = 0;
+
+      audio.play().catch(() => {
+        hugStatus.textContent =
+          "¡Abrazo recibido! Toca nuevamente para escuchar mi voz.";
+      });
+    }
+
+  }, 2500);
+}
+
+
+    function cancelPress() {
+      hugBtn.classList.remove("holding");
+      clearTimeout(pressTimer);
+      if (hugStatus.textContent === "Cargando abrazo...") {
+        hugStatus.textContent = "Te faltó mantenerlo un poquito más 🥺";
+      }
+    }
+
+    hugBtn.addEventListener("mousedown", startPress);
+    hugBtn.addEventListener("mouseup", cancelPress);
+    hugBtn.addEventListener("mouseleave", cancelPress);
+    hugBtn.addEventListener("touchstart", startPress);
+    hugBtn.addEventListener("touchend", cancelPress);
+
+    // ==========================================
+    // GALLETA DE LA FORTUNA (BLOQUEO 24H)
+    // ==========================================
+    const fortuneQuotes = [
+      "Hoy es un día menos para volver a darte un abrazo en persona.",
+      "Acuérdate de tomar agua y no dejar que los pendientes te ganen.",
+      "Tú y yo a la distancia seguimos siendo el mejor equipo.",
+      "Gracias por existir y por hacerme tan feliz todos los días.",
+      "Si hoy se pone difícil, acuérdate de que alguien te piensa con mucho orgullo.",
+      "Tu risa sigue siendo mi sonido favorito de todos.",
+      "Eres más fuerte de lo que crees y más capaz de lo que imaginas flaco.",
+      "No hay kilómetros que alcancen a enfriar lo que siento por ti.",
+      "Hoy te mereces consentirte con tu comida favorita sin culpas.",
+      "Alguien aquí ya tiene muchas ganas de verte pronto.",
+      "Respira hondo, lo estás haciendo excelente.",
+      "Tenerte en mi vida hace que todo lo cotidiano sea especial.",
+      "Un día más que pasa, un paso más cerca de nuestro reencuentro.",
+      "No olvides sonreír hoy, que te ves increíble haciéndolo.",
+      "Me encanta cómo te apasionas cuando me platicas lo que te gusta.",
+      "Eres mi lugar seguro, incluso a través de una pantalla.",
+      "Que nadie te quite la paz hoy; ve a tu propio ritmo.",
+      "Hoy te mando un abrazo apretado directo al corazón.",
+      "De todas las personas del mundo, me sigo quedando contigo.",
+      "Pausa 5 minutos, estira los brazos y tómate algo rico.",
+      "Cualquier día común se vuelve bueno con un mensaje tuyo.",
+      "Sigue construyendo tus metas, siempre estaré echándote porras.",
+      "La distancia solo demuestra lo real y fuerte que es lo nuestro.",
+      "Hoy promete ser un buen día si no te tomas las cosas tan en serio.",
+      "Te admiro un montón por cómo le echas ganas a todo.",
+      "Recordatorio amistoso: Te quiero muchísimo.",
+      "Date un ratito en la noche para descansar de verdad.",
+      "Nadie tiene esa vibra tan bonita y única que tienes tú.",
+      "Agradezco cada llamada, cada sticker y cada plática contigo.",
+      "El premio mayor siempre fue haber coincidido contigo."
+    ];
+
+    const cookieBtn = document.getElementById("cookieBtn");
+    const cookiePaper = document.getElementById("cookiePaper");
+    const cookieCountdown = document.getElementById("cookieCountdown");
+    const COOLDOWN_MS = 24 * 60 * 60 * 1000;
+
+    function checkCookieStatus() {
+      const lastOpened = localStorage.getItem("lastCookieTime");
+      const savedQuote = localStorage.getItem("lastCookieQuote");
+
+      if (lastOpened) {
+        const timePassed = Date.now() - parseInt(lastOpened);
+        if (timePassed < COOLDOWN_MS) {
+          cookieBtn.style.opacity = "0.5";
+          cookieBtn.style.cursor = "not-allowed";
+          cookiePaper.style.display = "block";
+          cookiePaper.textContent = `"${savedQuote}"`;
+          updateCountdown(COOLDOWN_MS - timePassed);
+          return;
+        }
+      }
+      cookieBtn.style.opacity = "1";
+      cookieBtn.style.cursor = "pointer";
+      cookieCountdown.textContent = "";
+    }
+
+    function crackCookie() {
+      const lastOpened = localStorage.getItem("lastCookieTime");
+      if (lastOpened) {
+        const timePassed = Date.now() - parseInt(lastOpened);
+        if (timePassed < COOLDOWN_MS) return;
+      }
+
+      const randomQuote = fortuneQuotes[Math.floor(Math.random() * fortuneQuotes.length)];
+      localStorage.setItem("lastCookieTime", Date.now());
+      localStorage.setItem("lastCookieQuote", randomQuote);
+
+      cookiePaper.style.display = "block";
+      cookiePaper.textContent = `"${randomQuote}"`;
+      cookieBtn.style.opacity = "0.5";
+      cookieBtn.style.cursor = "not-allowed";
+
+      updateCountdown(COOLDOWN_MS);
+    }
+
+    function updateCountdown(remainingMs) {
+      clearInterval(window.cookieTimerInterval);
+      window.cookieTimerInterval = setInterval(() => {
+        const lastOpened = parseInt(localStorage.getItem("lastCookieTime") || 0);
+        const diff = COOLDOWN_MS - (Date.now() - lastOpened);
+
+        if (diff <= 0) {
+          clearInterval(window.cookieTimerInterval);
+          checkCookieStatus();
+        } else {
+          const hours = Math.floor(diff / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+          cookieCountdown.textContent = `Siguiente galleta en: ${hours}h ${minutes}m ${seconds}s ⏳`;
+        }
+      }, 1000);
+    }
+
+    checkCookieStatus();
+
+    // ==========================================
+    // SOBRES "ÁBREME CUANDO..."
+    // ==========================================
+    const letters = [
+      {
+        title: "Para un día pesado ☕",
+        body: "Respira hondo. El trabajo y las prisas son solo un ratito, no definen tu día completo. Hiciste lo mejor que pudiste hoy y estoy muy orgulloso de ti. Descansa un ratito, y piensa en mi jajaja."
+      },
+      {
+        title: "Para cuando me extrañes 🥺",
+        body: "Yo también te estoy pensando justo ahora. La distancia solo hace que las ganas de verte sean el doble. No olvides que cada día que pasa es un día menos para volver a estar juntos."
+      },
+      {
+        title: "Para cuando tengas hambre o antojo 🍕",
+        body: "Orden de captura inmediata: deja de posponer la comida. Pídete unos buenos tacos o una pizza. Es más mandame tu ubicación que te voy a invitar algo rico de comer."
+      },
+      {
+        title: "Para cuando estés triste o de bajón 🌧️",
+        body: "Se vale tener días malos y no tener ganas de nada. No tienes que demostrarle nada a nadie hoy. Aquí estoy para escucharte si quieres hablar, o para acompañarte en silencio si solo quieres descansar o verte cocinar algo. Te quiero muchísimo."
+      },
+      {
+        title: "Para antes de irte a dormir 🌙",
+        body: "Apaga los pendientes y descansa la mente. Que duermas muy bonito; aquí me quedo cuidando tus descansos a la distancia. Mañana será otro gran día."
+      },
+      {
+        title: "Para cuando estés muy feliz ✨",
+        body: "¡Verte feliz me hace el doble de feliz a mí! Guarda bien esta sensación, disfrútala al máximo y acuérdate de sonreír mucho hoy, porque no tienes idea de lo increíble que te ves cuando estás contento/a. Ojalá estuviera ahí para celebrarlo y darte un abrazo enorme, pero desde aquí te mando toda mi buena vibra. ¡Te amo muchísimo!"
+      }
+    ];
+
+    function openLetter(index) {
+      document.getElementById("modalTitle").textContent = letters[index].title;
+      document.getElementById("modalBody").textContent = letters[index].body;
+      document.getElementById("noteModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("noteModal").style.display = "none";
+    }
+
+    function flipCard(card) {
+      card.classList.toggle("flipped");
+    }
+
+    // ==========================================
+    // RASCADITO SOBRE cupon.jpg
+    // ==========================================
+    const canvas = document.getElementById("scratchCanvas");
+    const ctx = canvas.getContext("2d");
+    const downloadBtn = document.getElementById("downloadBtn");
+    let isDrawing = false;
+    let scratchedMoves = 0;
+
+    ctx.fillStyle = "#94a3b8";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#1e293b";
+    ctx.font = "bold 15px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("✨ RASPA AQUÍ PARA DESCUBRIR ✨", canvas.width / 2, canvas.height / 2 + 5);
+
+    function scratch(e) {
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+      const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.beginPath();
+      ctx.arc(x, y, 22, 0, Math.PI * 2);
+      ctx.fill();
+
+      scratchedMoves++;
+      if (scratchedMoves > 30) {
+        canvas.style.opacity = "0";
+        setTimeout(() => { canvas.style.display = "none"; }, 500);
+        downloadBtn.style.display = "inline-block";
+      }
+    }
+
+    canvas.addEventListener("mousedown", () => isDrawing = true);
+    window.addEventListener("mouseup", () => isDrawing = false);
+    canvas.addEventListener("mousemove", scratch);
+
+    canvas.addEventListener("touchstart", (e) => { isDrawing = true; scratch(e); });
+    window.addEventListener("touchend", () => isDrawing = false);
+    canvas.addEventListener("touchmove", scratch);
+
+    // ==========================================
+    // CANDADO SECRETO
+    // ==========================================
+    function checkCode() {
+      const input = document.getElementById("passcode").value.trim();
+      const error = document.getElementById("error-msg");
+      const letter = document.getElementById("secret-letter");
+
+      if (input === SECRET_CODE) {
+        error.style.display = "none";
+        letter.style.display = "block";
+      } else {
+        error.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
