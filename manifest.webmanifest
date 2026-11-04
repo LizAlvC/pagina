@@ -1,0 +1,15 @@
+{
+  "name": "Con cariño para mi Flaco",
+  "short_name": "Para mi Flaco",
+  "description": "Una página especial de recuerdos, cartas y sorpresas.",
+  "id": "./index.html",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1120",
+  "theme_color": "#0b1120",
+  "icons": [
+    {"src": "./icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "./icon-512.png", "sizes": "512x512", "type": "image/png"}
+  ]
+}
